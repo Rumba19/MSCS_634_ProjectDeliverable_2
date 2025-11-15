@@ -592,27 +592,6 @@ Minimize: Σ(y_actual - y_predicted)² + α × Σ|βᵢ|
 - Identifies key predictors
 - Reduces noise from irrelevant features
 
-#### Hyperparameter Selection
-
-**Tested α values:** [0.1, 1.0, 5.0, 10.0]
-
-**Selection Method:**
-- Train model with each α
-- Evaluate test R²
-- Balance between performance and sparsity
-
-**Optimal α:** [Value from output]
-
-**Trade-off:**
-- **Lower α:** More features kept, better fit, more complex
-- **Higher α:** Fewer features kept, simpler model, may underfit
-
-#### When to Use
-
-- Many potentially irrelevant features
-- Want automatic feature selection
-- Prefer simpler, more interpretable models
-- Correlated features present (will select one)
 
 ---
 
@@ -773,18 +752,12 @@ MAE = (1/n) × Σ|y_actual - y_predicted|
 
 ---
 
-### Screenshot #1: Feature Engineering
+###  Feature Engineering
 
 **What This Shows:**
 - Sample of engineered features (first 10 rows)
 - Original features alongside new features
 - Statistical summary of new features (mean, std, min, max, quartiles)
-
-**What to Look For:**
-1. **Value Ranges:** Do new features have reasonable ranges?
-2. **No Missing Values:** Confirm all features successfully created
-3. **Proper Encoding:** Categorical features use expected values (0, 1, 2, 3)
-4. **Relationships Visible:** Can see how features relate to original data
 
 **Key Observations:**
 - Age groups properly encoded (0-3)
@@ -800,7 +773,7 @@ MAE = (1/n) × Σ|y_actual - y_predicted|
 
 ---
 
-### Screenshot #2: Model Performance Comparison
+###  Model Performance Comparison
 
 **What This Shows:**
 Complete table comparing three models across four metrics:
@@ -813,25 +786,6 @@ Complete table comparing three models across four metrics:
 
 Plus identification of best model.
 
-**What to Look For:**
-
-1. **R² Scores:**
-   - Which model explains most variance?
-   - Are scores reasonable (0.3-0.6 expected)?
-   - Large differences or similar performance?
-
-2. **RMSE Values:**
-   - Typical prediction error in mg/dl
-   - Is it clinically acceptable (<30 mg/dl good)?
-   - Which model has lowest error?
-
-3. **Consistency:**
-   - Does best R² also have lowest RMSE?
-   - Are rankings consistent across metrics?
-
-4. **Improvement from Regularization:**
-   - Did Ridge/Lasso beat Linear?
-   - By how much (marginal or substantial)?
 
 **Interpretation Guide:**
 
@@ -857,7 +811,7 @@ Plus identification of best model.
 
 ---
 
-### Screenshot #3: Cross-Validation Results
+###  Cross-Validation Results
 
 **What This Shows:**
 5-fold cross-validation results for each model:
@@ -867,22 +821,6 @@ Plus identification of best model.
 | Linear Regression | [val] | [val] |
 | Ridge (α=X) | [val] | [val] |
 | Lasso (α=Y) | [val] | [val] |
-
-**What to Look For:**
-
-1. **Mean CV R²:**
-   - Average performance across 5 folds
-   - Should be similar to test R² (±0.05)
-   - Best model identification
-
-2. **Standard Deviation:**
-   - **Low (<0.05):** Stable, consistent performance
-   - **Medium (0.05-0.10):** Some variability
-   - **High (>0.10):** Unstable, sensitive to data split
-
-3. **Model Comparison:**
-   - Rankings should match test performance
-   - If different, may indicate overfitting/lucky split
 
 **Interpretation:**
 
@@ -914,7 +852,7 @@ Std > 0.07: Unstable, data-dependent
 
 ---
 
-### Screenshot #4: 9-Panel Visualization
+###  9-Panel Visualization
 
 **Panel Layout:**
 ```
@@ -926,11 +864,6 @@ Std > 0.07: Unstable, data-dependent
 #### **Panels 1-3: Actual vs Predicted Plots**
 
 **Purpose:** Visual assessment of prediction accuracy
-
-**What to Look For:**
-- **Points near red line:** Good predictions
-- **Scatter from line:** Prediction errors
-- **Systematic patterns:** Model bias
 
 **Ideal Pattern:**
 - Random scatter around diagonal line
@@ -974,11 +907,6 @@ Negative residual = Overprediction
 
 **Purpose:** Direct visual ranking of models
 
-**What to Look For:**
-- Height of bars = R² score
-- Taller = better (explains more variance)
-- Numerical labels on bars show exact values
-
 **Interpretation:**
 - Clear winner or close competition?
 - Magnitude of differences important
@@ -987,12 +915,6 @@ Negative residual = Overprediction
 #### **Panel 8: RMSE Comparison**
 
 **Purpose:** Compare typical prediction errors
-
-**What to Look For:**
-- Height of bars = RMSE in mg/dl
-- **Shorter = better** (lower error)
-- Numerical labels show exact RMSE
-
 **Clinical Interpretation:**
 - RMSE <20 mg/dl: Excellent (can distinguish cholesterol categories)
 - RMSE 20-30 mg/dl: Good (useful for screening)
@@ -1003,10 +925,6 @@ Negative residual = Overprediction
 
 **Purpose:** Show model stability and generalization
 
-**What to Look For:**
-- Bar height = mean CV R²
-- Error bars = standard deviation across folds
-- **Shorter error bars = more stable**
 
 **Interpretation:**
 - Bars should roughly match Panel 7 heights
@@ -1020,51 +938,13 @@ Negative residual = Overprediction
 
 ---
 
-### Screenshot #5: Feature Importance
+###  Feature Importance
 
 **What This Shows:**
 - Top 15 features ranked by absolute coefficient value
 - Horizontal bar chart showing coefficient magnitude and direction
 - Green bars = positive coefficient (increases cholesterol)
 - Red bars = negative coefficient (decreases cholesterol)
-
-**What to Look For:**
-
-1. **Top Predictors:**
-   - Which features have largest coefficients?
-   - Are they original or engineered features?
-   - Do they make clinical sense?
-
-2. **Engineered Feature Performance:**
-   - How many of top 10 are engineered?
-   - Did feature engineering help?
-
-3. **Direction of Effects:**
-   - Green (positive): Increases cholesterol
-   - Red (negative): Decreases cholesterol
-   - Do directions match expectations?
-
-4. **Magnitude Spread:**
-   - Large gap between #1 and #10?
-   - Or relatively equal importance?
-
-**Expected Patterns:**
-
-**Positive Coefficients (Increase Cholesterol):**
-- Age (older = higher cholesterol typically)
-- Blood pressure (correlated risk factors)
-- Cardiovascular risk score (compound metric)
-- Fasting blood sugar (metabolic syndrome link)
-
-**Negative Coefficients (Decrease Cholesterol):**
-- Maximum heart rate (fitness indicator)
-- Exercise capacity (healthy lifestyle marker)
-- Possibly sex (if male/female differences exist)
-
-**Surprising Findings:**
-- Unexpected features ranking high
-- Counterintuitive directions
-- Very weak original features
 
 **Interpreting Coefficients:**
 
@@ -1138,10 +1018,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 -  Slower (2× computation time)
 -  Overly optimistic for small datasets
 
-**Leave-One-Out:**
--  Maximum training data
--  Very slow (303 iterations for our data)
--  High variance in estimates
 
 ### Purpose and Benefits
 
@@ -1156,16 +1032,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
    - Standard deviation shows consistency
    - Low std dev = stable across data subsets
    - High std dev = performance varies widely
-
-3. **Overfitting Detection**
-   - Compare training vs CV performance
-   - Large gap indicates overfitting
-   - Small gap indicates good generalization
-
-4. **Model Selection**
-   - Choose model with best mean CV score
-   - Consider std dev (prefer stable models)
-   - More reliable than single test set
 
 ### Interpreting Results
 
@@ -1256,11 +1122,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 - Features eliminated: [number]
 - Interpretation: [whether feature selection helped]
 
-**Ridge vs Lasso:**
-- Better performer: [Ridge/Lasso]
-- Trade-off: [Ridge keeps all features, Lasso simpler]
-- Recommendation: [Which to use and why]
-
 **Overall Regularization Conclusion:**
 - Helped: If Ridge or Lasso beat Linear by >0.02 R²
 - Didn't help: If Linear performed as well or better
@@ -1274,10 +1135,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 1. [Feature name] - [Why it worked]
 2. [Feature name] - [Why it worked]
 3. [Feature name] - [Why it worked]
-
-**Less Useful Engineered Features:**
-- [Features that didn't rank high]
-- [Possible reasons why]
 
 **Overall Assessment:**
 - Feature engineering was [very successful/moderately successful/not very successful]
@@ -1365,13 +1222,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 -  Capture dietary effects
 -  Predict individual outcomes with certainty
 -  Generalize beyond similar populations
-
-**What Model Can Do:**
--  Estimate cholesterol from other health metrics
--  Identify important risk factors
--  Screen for high-risk patients
--  Guide further testing priorities
--  Research tool for understanding relationships
 
 ### 6. Comparison to Medical Knowledge
 
@@ -1505,12 +1355,7 @@ This creates circularity - using target to predict itself
 - Better: Use separate validation set or nested CV
 - Trade-off: Simpler approach for educational purposes
 
-**Alternative Methods:**
-- Cross-validation on training set only
-- Separate validation set (requires more data)
-- Bayesian optimization of hyperparameters
 
-### Challenge 5: Small Sample Size Relative to Features
 
 **Issue:** 303 samples for 20 features
 
@@ -1540,37 +1385,7 @@ This creates circularity - using target to predict itself
 - Consider dimensionality reduction (PCA)
 - Use simpler models (fewer features)
 
-### Challenge 6: Interpreting Model Performance
 
-**Issue:** Is R² of [value] good or bad for this problem?
-
-**Context Needed:**
-- Medical/biological data inherently noisy
-- Many unmeasured factors affect cholesterol
-- Comparison to baseline and literature needed
-
-**Framework Developed:**
-```
-For Medical Data:
-R² > 0.5: Excellent (rare)
-R² 0.3-0.5: Good (typical)
-R² 0.2-0.3: Moderate
-R² < 0.2: Weak
-```
-
-**Our Performance:** [value] = [assessment based on framework]
-
-**Supporting Evidence:**
-- Literature review of similar studies
-- Comparison to clinical prediction rules
-- Assessment of clinical utility at this accuracy level
-
-**Communication Challenge:**
-- Stakeholders may expect R² > 0.8 (common in physics/engineering)
-- Must educate about complexity of biological systems
-- Focus on clinical utility rather than perfect prediction
-
-### Challenge 7: Balancing Model Complexity and Interpretability
 
 **Issue:** More complex models may perform better but are harder to explain
 
@@ -1601,7 +1416,6 @@ R² < 0.2: Weak
 
 ---
 
-## Conclusions and Recommendations
 
 ### Main Findings
 
@@ -1641,11 +1455,6 @@ R² < 0.2: Weak
    - Combine with other risk calculators
    - Understand cholesterol determinants
    - Guide patient counseling
-
-3. **Resource Allocation**
-   - Focus testing on high-risk patients
-   - Optimize lab resource usage
-   - Target interventions effectively
 
 **For Patients:**
 1. **Risk Awareness**
@@ -1688,84 +1497,4 @@ R² < 0.2: Weak
 2. May not apply to other demographics
 3. Temporal changes since 1988
 4. Requires validation on external data
-
-### Recommendations for Future Work
-
-**Immediate Improvements:**
-1. **Collect More Data**
-   - Target >500 patients
-   - Include dietary information
-   - Add genetic markers
-   - Record medication use
-
-2. **External Validation**
-   - Test on different hospital data
-   - Validate across populations
-   - Compare to clinical guidelines
-
-3. **Feature Refinement**
-   - Remove cholesterol category (leakage)
-   - Add temporal trends
-   - Include family history
-   - Create more interactions
-
-**Model Enhancements:**
-1. **Try Non-Linear Models** (Deliverable 3)
-   - Random Forest
-   - Gradient Boosting
-   - Neural Networks
-   - Compare to linear baseline
-
-2. **Ensemble Methods**
-   - Combine multiple models
-   - Leverage different model strengths
-   - Improve prediction robustness
-
-3. **Specialized Techniques**
-   - Quantile regression (predict ranges)
-   - Bayesian approaches (uncertainty quantification)
-   - Time-series methods (if longitudinal data)
-
-**Clinical Integration:**
-1. **Prospective Validation**
-   - Test predictions against actual lab results
-   - Measure clinical impact
-   - Assess cost-effectiveness
-
-2. **Decision Support Integration**
-   - Embed in electronic health records
-   - Provide real-time predictions
-   - Alert for high-risk patients
-
-3. **Guideline Alignment**
-   - Compare to ATP III risk calculator
-   - Integrate with existing tools
-   - Seek clinical endorsement
-
----
-
-
-### Key Takeaways for Next Phase
-
-1. **Feature Set Ready:**
-   - 20 well-engineered features
-   - Properly scaled and validated
-   - Importance rankings known
-
-2. **Data Understanding:**
-   - Distribution characteristics known
-   - Outliers identified and handled
-   - Relationships between variables mapped
-
-3. **Modeling Insights:**
-   - Regularization helpful for this data
-   - Cross-validation essential
-   - Clinical interpretation matters
-
-4. **Domain Knowledge:**
-   - Cardiovascular risk factors understood
-   - Clinical guidelines integrated
-   - Medical context established
-
----
 

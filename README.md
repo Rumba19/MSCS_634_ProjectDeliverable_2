@@ -58,19 +58,19 @@ Our dataset mean (246 mg/dl) indicates a high-risk population, making prediction
 ### **Alternative Targets Considered**
 
 **Maximum Heart Rate (thalach):**
-- ✅ Good alternative, physiologically interesting
-- ❌ Less clinically actionable than cholesterol
-- ❌ More influenced by unmeasured factors (fitness level)
+-  Good alternative, physiologically interesting
+-  Less clinically actionable than cholesterol
+-  More influenced by unmeasured factors (fitness level)
 
 **Resting Blood Pressure (trestbps):**
-- ✅ Important risk factor
-- ❌ Less variability in dataset
-- ❌ Already has clear clinical guidelines
+-  Important risk factor
+-  Less variability in dataset
+-  Already has clear clinical guidelines
 
 **ST Depression (oldpeak):**
-- ✅ Diagnostic value for ischemia
-- ❌ Smaller range, less variability
-- ❌ More technical, less understandable to patients
+-  Diagnostic value for ischemia
+-  Smaller range, less variability
+-  More technical, less understandable to patients
 
 **Decision:** Cholesterol chosen for optimal combination of clinical relevance, statistical properties, and practical value.
 
@@ -1575,11 +1575,11 @@ R² < 0.2: Weak
 **Issue:** More complex models may perform better but are harder to explain
 
 **Models Considered:**
-- ✅ Linear (simple, interpretable)
-- ✅ Ridge (moderate complexity)
-- ✅ Lasso (moderate complexity, sparse)
-- ❌ Random Forest (complex, black box)
-- ❌ Neural Networks (very complex, black box)
+-  Linear (simple, interpretable)
+-  Ridge (moderate complexity)
+-  Lasso (moderate complexity, sparse)
+-  Random Forest (complex, black box)
+-  Neural Networks (very complex, black box)
 
 **Decision:** Stuck with linear models
 

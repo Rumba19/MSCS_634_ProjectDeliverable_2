@@ -1344,6 +1344,7 @@ This creates circularity - using target to predict itself
 
 
 ### Main Findings
+![findings](findings.png)
 ![summary](summary.png)
 
 1. **Cholesterol Prediction is Feasible**

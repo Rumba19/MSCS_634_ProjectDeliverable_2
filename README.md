@@ -378,12 +378,7 @@ Minimize: Σ(y_actual - y_predicted)²
  **Assumes Linearity:** May miss non-linear patterns  
  **No Feature Selection:** Uses all features equally  
 
-#### When to Use
 
-- Small number of features relative to samples
-- Features are independent
-- Interpretability is paramount
-- As baseline for comparison
 
 #### Performance Expectations
 
@@ -403,27 +398,6 @@ For medical/biological data:
 **Regularization:** Penalizes sum of squared coefficients  
 **Complexity:** Slightly more complex (1 hyperparameter)
 
-**Mathematical Form:**
-```
-y = β₀ + β₁x₁ + β₂x₂ + ... + β₂₀x₂₀ + ε
-```
-
-**Objective Function:**
-```
-Minimize: Σ(y_actual - y_predicted)² + α × Σ(βᵢ²)
-                    ↑                      ↑
-            Original Loss           L2 Penalty
-```
-
-**Hyperparameter α (Alpha):**
-- **α = 0:** Equivalent to Linear Regression (no penalty)
-- **α → ∞:** All coefficients shrink toward zero
-- **Typical range:** 0.01 to 1000
-
-**Effect of α:**
-- **Low α:** Less regularization, closer to Linear Regression
-- **High α:** More regularization, smaller coefficients
-
 
 #### Advantages
 
@@ -440,27 +414,6 @@ Minimize: Σ(y_actual - y_predicted)² + α × Σ(βᵢ²)
  **Doesn't Select Features:** All features remain in model  
  **Slight Bias:** Introduces bias to reduce variance  
 
-#### Hyperparameter Selection
-
-**Tested α values:** [0.1, 1.0, 10.0, 100.0]
-
-**Selection Method:**
-- Train model with each α on training set
-- Evaluate R² on test set
-- Select α with highest test R²
-
-**Optimal α:** [Value from output]
-
-**Interpretation:**
-- If optimal α is low (0.1): Little regularization needed, data not overfitting much
-- If optimal α is high (100): Strong regularization needed, overfitting was significant
-
-#### When to Use
-
-- Features are correlated (common in medical data)
-- Want to keep all features
-- Overfitting suspected
-- Many features relative to samples
 
 ---
 
@@ -473,26 +426,6 @@ Minimize: Σ(y_actual - y_predicted)² + α × Σ(βᵢ²)
 **Complexity:** Slightly more complex (1 hyperparameter)  
 **Special Property:** Performs automatic feature selection
 
-**Mathematical Form:**
-```
-y = β₀ + β₁x₁ + β₂x₂ + ... + β₂₀x₂₀ + ε
-```
-
-**Objective Function:**
-```
-Minimize: Σ(y_actual - y_predicted)² + α × Σ|βᵢ|
-                    ↑                      ↑
-            Original Loss           L1 Penalty
-```
-
-**Key Difference from Ridge:**
-- Ridge: Σ(βᵢ²) → Squared coefficients
-- Lasso: Σ|βᵢ| → Absolute coefficients
-
-**Hyperparameter α (Alpha):**
-- **α = 0:** Linear Regression
-- **α → ∞:** All coefficients become zero
-- **Typical range:** 0.01 to 100
 
 ![lasso](/Regression/Lasso.png)
 
@@ -510,21 +443,6 @@ Minimize: Σ(y_actual - y_predicted)² + α × Σ|βᵢ|
  **Unstable with Correlated Features:** Randomly picks one from correlated group  
  **Hyperparameter Sensitive:** Performance depends heavily on α  
  **Less Smooth Solutions:** Coefficient paths have kinks  
-
-#### Feature Selection
-
-**Features Used:** [X out of 20] (from output)  
-**Features Eliminated:** [20 - X]
-
-**Interpretation:**
-- Features with **non-zero coefficients:** Deemed important by model
-- Features with **zero coefficients:** Not necessary for prediction
-
-**Benefits:**
-- Simpler model (easier to deploy)
-- Identifies key predictors
-- Reduces noise from irrelevant features
-
 
 ---
 

@@ -950,29 +950,7 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 ![findings](findings.png)
 ![summary](summary.png)
 
-1. **Cholesterol Prediction is Feasible**
-   - Achieved R² of [value] using health metrics
-   - Explains [X]% of cholesterol variability
-   - Performance typical for medical data
 
-2. **Regularization [Did/Didn't] Improve Performance**
-   - [Ridge/Lasso/Neither] performed best
-   - [Interpretation of regularization impact]
-   - [Recommendation for future use]
-
-3. **Feature Engineering Added Value**
-   - [X] engineered features in top 10
-   - Domain knowledge successfully translated to features
-   - Clinical guidelines effectively captured
-
-4. **Key Cholesterol Predictors Identified**
-   - Top factors: [list top 3-5]
-   - Modifiable factors: [list]
-   - Intervention opportunities: [describe]
-
-5. **Model Generalizes [Well/Moderately/Poorly]**
-   - Cross-validation showed [interpretation]
-   - [Assessment of reliability]
 
 ### Practical Applications
  **Screening Tool**
@@ -984,7 +962,7 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
    - Understand personal risk factors
    - Identify modifiable behaviors
    - Track health metrics over time
-   
+
  **Hypothesis Generation**
    - Identify factors for further study
    - Understand factor relationships

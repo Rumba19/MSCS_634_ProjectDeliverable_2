@@ -1,4 +1,4 @@
-# Data Mining Project - Deliverable 2
+
 ## Regression Modeling and Performance Evaluation
 
 ---
@@ -979,10 +979,12 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
    - Identify patients needing lipid panels
    - Prioritize high-risk individuals
    - Estimate cholesterol between blood tests
+
  **Risk Awareness**
    - Understand personal risk factors
    - Identify modifiable behaviors
    - Track health metrics over time
+   
  **Hypothesis Generation**
    - Identify factors for further study
    - Understand factor relationships

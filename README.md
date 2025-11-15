@@ -55,26 +55,7 @@ Our dataset mean (246 mg/dl) indicates a high-risk population, making prediction
 - Feature engineering can capture complex relationships
 - Expected moderate R² (0.3-0.5) typical for biological data
 
-### **Alternative Targets Considered**
 
-**Maximum Heart Rate (thalach):**
--  Good alternative, physiologically interesting
--  Less clinically actionable than cholesterol
--  More influenced by unmeasured factors (fitness level)
-
-**Resting Blood Pressure (trestbps):**
--  Important risk factor
--  Less variability in dataset
--  Already has clear clinical guidelines
-
-**ST Depression (oldpeak):**
--  Diagnostic value for ischemia
--  Smaller range, less variability
--  More technical, less understandable to patients
-
-**Decision:** Cholesterol chosen for optimal combination of clinical relevance, statistical properties, and practical value.
-
----
 
 ##  Feature Engineering
 
@@ -85,6 +66,7 @@ Created 8 new features based on domain knowledge, clinical guidelines, and data 
 - Improving interpretability
 
 ### New Features Created
+![features](FeatureModel/features.png)
 
 #### 1. **Age Group Encoding** (`age_group_encoded`)
 
@@ -310,7 +292,7 @@ HR_Percentage = (Max_HR / (220 - Age)) × 100
 ---
 
 ### Feature Engineering Summary
-
+![dataSet](/FeatureModel/datasetFeature.png)
 **Total Features:** 20
 - **Original:** 12
 - **Engineered:** 8
@@ -355,47 +337,8 @@ train_test_split(test_size=0.2, random_state=42)
 
 ---
 
-### Feature Scaling
-
-**Method:** StandardScaler (Z-score normalization)
-
-**Transformation:**
-```
-Scaled_Feature = (Original_Value - Mean) / Standard_Deviation
-```
-
-**Result:**
-- **Mean:** 0 (centered)
-- **Standard Deviation:** 1 (unit variance)
-
-**Why Scaling is Critical:**
-
-#### 1. **Required for Regularization**
-- Ridge and Lasso penalize coefficient magnitudes
-- Without scaling, large-valued features get artificially smaller penalties
-- Scaling ensures fair regularization across all features
-
-#### 2. **Improves Model Convergence**
-- Optimization algorithms converge faster
-- Gradient descent takes more direct path to minimum
-- Reduces numerical instability
-
-#### 3. **Enables Coefficient Comparison**
-- Scaled coefficients directly comparable
-- Shows relative importance of features
-- Larger absolute coefficient = more important feature
-
-#### 4. **Prevents Feature Dominance**
-- Without scaling: Age (range: 29-77) vs Fasting Blood Sugar (range: 0-1)
-- Model would give undue weight to age simply due to scale
-- Scaling ensures equal opportunity for all features
-
-**Important:** StandardScaler fitted on training data only, then applied to test data to prevent data leakage.
-
----
-
-## Part 3: Regression Models
-
+##  Regression Models
+![targetSelection](/Regression/TargetSelection.png)
 ### Model 1: Linear Regression (Baseline)
 
 #### Description
@@ -450,6 +393,7 @@ For medical/biological data:
 - **R² <0.3:** Model may not capture relationships well
 
 ---
+![linearRidge](/Regression/Linear&Ridge.png)
 
 ###  Ridge Regression (L2 Regularization)
 
@@ -480,12 +424,6 @@ Minimize: Σ(y_actual - y_predicted)² + α × Σ(βᵢ²)
 - **Low α:** Less regularization, closer to Linear Regression
 - **High α:** More regularization, smaller coefficients
 
-#### How It Works
-
-1. **Penalty Term:** Adds α × Σ(βᵢ²) to loss function
-2. **Coefficient Shrinkage:** Pulls all coefficients toward zero
-3. **Proportional Shrinking:** Larger coefficients shrunk more
-4. **Never Eliminates:** Coefficients approach but never reach zero
 
 #### Advantages
 
@@ -556,12 +494,7 @@ Minimize: Σ(y_actual - y_predicted)² + α × Σ|βᵢ|
 - **α → ∞:** All coefficients become zero
 - **Typical range:** 0.01 to 100
 
-#### How It Works
-
-1. **Penalty Term:** Adds α × Σ|βᵢ| to loss function
-2. **Coefficient Shrinkage:** Pulls coefficients toward zero
-3. **Sparsity:** Can set coefficients to exactly zero
-4. **Feature Selection:** Features with zero coefficients eliminated
+![lasso](/Regression/Lasso.png)
 
 #### Advantages
 
@@ -610,6 +543,7 @@ Minimize: Σ(y_actual - y_predicted)² + α × Σ|βᵢ|
 **Visual Analogy:**
 - **Ridge:** Pushes all coefficients down proportionally (like turning down volume)
 - **Lasso:** Eliminates some coefficients entirely (like muting channels)
+![comparison](Comparison/modelComparison.png)
 
 ---
 
@@ -812,7 +746,7 @@ Plus identification of best model.
 ---
 
 ###  Cross-Validation Results
-
+![cross Validation](Comparison/crossValidation.png)
 **What This Shows:**
 5-fold cross-validation results for each model:
 

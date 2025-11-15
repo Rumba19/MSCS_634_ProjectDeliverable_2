@@ -827,25 +827,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 
 ---
 
-## Key Insights and Findings
-
-### 1. Model Performance Summary
-**Performance Metrics:**
-- **R² Score:** [value] → Explains [X]% of cholesterol variance
-- **RMSE:** [value] mg/dl → Typical prediction error
-- **MAE:** [value] mg/dl → Average absolute error
-- **CV R²:** [value] → Expected performance on new data
-
-**Clinical Interpretation:**
-- Predicts cholesterol within ±[RMSE] mg/dl on average
-- Given cholesterol categories span ~40 mg/dl, this represents [assessment]
-- [Clinical utility assessment: useful/limited/not clinically actionable]
-
-**Comparison to Baseline:**
-- Baseline (predicting mean): R² = 0.0
-- Our model: R² = [value]
-- Improvement: [Interpretation of how much better]
-
 
 **Data Limitations:**
 1. **Sample Size:** 303 patients (modest for 20 features)
@@ -870,22 +851,11 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 
 **Model Limitations:**
 
-1. **Explained Variance:**
-   - R² of [value] means [100-X]% variance unexplained
    - Many factors not captured by model
    - Biological complexity exceeds model
-
-2. **Linear Assumptions:**
    - Assumes linear relationships
    - May miss non-linear patterns
    - Real biology often non-linear
-
-3. **Prediction Error:**
-   - RMSE of [value] mg/dl is significant
-   - May not distinguish between adjacent categories
-   - [Assessment of clinical utility given error]
-
-4. **Feature Leakage Risk:**
    - Cholesterol category feature uses target
    - May artificially inflate performance
    - Should interpret cautiously

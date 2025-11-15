@@ -946,12 +946,6 @@ Negative residual = Overprediction
 - Green bars = positive coefficient (increases cholesterol)
 - Red bars = negative coefficient (decreases cholesterol)
 
-**Interpreting Coefficients:**
-
-For scaled features, coefficient magnitude shows relative importance:
-- **Coefficient = 15:** If feature increases by 1 std dev, cholesterol increases by 15 mg/dl
-- **Larger absolute value = stronger influence**
-
 **Validation Check:**
 - Do top features align with medical knowledge?
 - Are implausible features ranking high? (may indicate spurious correlation)
@@ -959,7 +953,7 @@ For scaled features, coefficient magnitude shows relative importance:
 
 ---
 
-## Part 5: Cross-Validation Analysis
+##  Cross-Validation Analysis
 
 ### Methodology
 
@@ -1156,7 +1150,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 3. **[Feature]** (Coef: [value])
    - [Interpretation]
 
-[Continue for top 5...]
 
 **Top 3 Negative Predictors** (decrease cholesterol):
 
@@ -1164,7 +1157,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
    - **Clinical interpretation:** [What this means]
    - **Protective factor:** [Why it lowers cholesterol]
 
-[Continue for top 3...]
 
 **Clinical Insights:**
 - Modifiable risk factors identified: [List]

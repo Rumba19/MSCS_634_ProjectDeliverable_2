@@ -888,7 +888,7 @@ Negative residual = Overprediction
 ---
 
 ##  Cross-Validation Analysis
-
+![analysis](/Comparison/Analysis.png)
 ### Methodology
 
 **Type:** K-Fold Cross-Validation  
@@ -987,7 +987,7 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 |Test R² - CV R²| 0.07-0.15: Moderate agreement
 |Test R² - CV R²| > 0.15: Poor agreement (problem!)
 ```
-
+![coefficients](/Comparison/coefficients.png)
 ### Common Patterns
 
 **Pattern 1: Test R² ≈ CV R²**
@@ -1344,6 +1344,7 @@ This creates circularity - using target to predict itself
 
 
 ### Main Findings
+![summary](summary.png)
 
 1. **Cholesterol Prediction is Feasible**
    - Achieved R² of [value] using health metrics

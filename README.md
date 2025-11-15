@@ -624,83 +624,8 @@ MAE = (1/n) × Σ|y_actual - y_predicted|
 -  Engineered features align with originals
 
 ---
-
-###  Model Performance Comparison
-
-**What This Shows:**
-Complete table comparing three models across four metrics:
-
-| Model | R² | MSE | RMSE | MAE |
-|-------|-----|-----|------|-----|
-| Linear Regression | [val] | [val] | [val] | [val] |
-| Ridge (α=X) | [val] | [val] | [val] | [val] |
-| Lasso (α=Y) | [val] | [val] | [val] | [val] |
-
-Plus identification of best model.
-
-
-**Interpretation Guide:**
-
-**If Linear is best:**
-- Dataset not overfitting significantly
-- Features well-chosen and independent
-- Simple model sufficient
-
-**If Ridge is best:**
-- Regularization helped
-- Multicollinearity was present
-- All features contribute
-
-**If Lasso is best:**
-- Feature selection improved performance
-- Some features were noisy/irrelevant
-- Simpler model generalizes better
-
-**Expected Results:**
-- R² between 0.25-0.50 (typical for medical data)
-- RMSE between 20-50 mg/dl
-- Small differences between models (±0.02-0.05 R²)
-
----
-
 ###  Cross-Validation Results
 ![cross Validation](Comparison/crossValidation.png)
-**What This Shows:**
-5-fold cross-validation results for each model:
-
-| Model | Mean CV R² | Std Dev |
-|-------|------------|---------|
-| Linear Regression | [val] | [val] |
-| Ridge (α=X) | [val] | [val] |
-| Lasso (α=Y) | [val] | [val] |
-
-**Interpretation:**
-
-**Test R² vs CV R²:**
-```
-Gap < 0.03: Excellent generalization
-Gap 0.03-0.07: Good generalization  
-Gap 0.07-0.15: Moderate generalization
-Gap > 0.15: Poor generalization (overfitting)
-```
-
-**Standard Deviation:**
-```
-Std < 0.03: Very stable model
-Std 0.03-0.07: Moderately stable
-Std > 0.07: Unstable, data-dependent
-```
-
-**What Cross-Validation Tells Us:**
--  Model performance on unseen data
--  Consistency across different data splits
--  Generalization ability
--  Whether test results were lucky/unlucky
-
-**Red Flags:**
--  Test R² much higher than CV R² (overfitting on test set)
--  High standard deviation (model unstable)
--  Different model rankings (test set not representative)
 
 ---
 
@@ -807,12 +732,6 @@ Negative residual = Overprediction
 
 ##  Cross-Validation Analysis
 ![analysis](/Comparison/Analysis.png)
-### Methodology
-
-**Type:** K-Fold Cross-Validation  
-**Number of Folds:** 5  
-**Scoring Metric:** R² (coefficient of determination)  
-**Random State:** 42 (reproducibility)
 
 ### How 5-Fold Cross-Validation Works
 
@@ -838,32 +757,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 - 5 R² scores (one per fold)
 - Mean R² (average performance)
 - Std deviation (consistency measure)
-
-### Why 5-Fold CV?
-
-**Why Cross-Validation?**
-- **Single split problem:** Test performance could be lucky/unlucky
-- **CV solution:** Average over multiple splits
-- **More reliable:** Reduces variance in performance estimate
-
-**Why 5 Folds (not 3 or 10)?**
-
-**3-Fold:**
-- Faster computation
-- Less reliable estimates (only 3 data points)
-- Less training data per fold (66% vs 80%)
-**5-Fold:**  **Recommended**
--  Good balance of reliability and computation
--  Standard in machine learning research
--  80% training data per fold
--  Reasonable number of estimates (5)
-
-**10-Fold:**
--  More reliable estimates (10 data points)
--  More training data per fold (90%)
--  Slower (2× computation time)
--  Overly optimistic for small datasets
-
 
 ### Purpose and Benefits
 
@@ -937,9 +830,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 ## Key Insights and Findings
 
 ### 1. Model Performance Summary
-
-**Best Model:** [Model name from results]
-
 **Performance Metrics:**
 - **R² Score:** [value] → Explains [X]% of cholesterol variance
 - **RMSE:** [value] mg/dl → Typical prediction error
@@ -956,66 +846,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 - Our model: R² = [value]
 - Improvement: [Interpretation of how much better]
 
-### 2. Regularization Impact
-
-**Ridge vs Linear Regression:**
-- R² difference: [value]
-- Interpretation: [better/worse/similar]
-- Conclusion: [whether regularization helped]
-
-**Lasso vs Linear Regression:**
-- R² difference: [value]
-- Features eliminated: [number]
-- Interpretation: [whether feature selection helped]
-
-**Overall Regularization Conclusion:**
-- Helped: If Ridge or Lasso beat Linear by >0.02 R²
-- Didn't help: If Linear performed as well or better
-- Neutral: If differences <0.02 (within noise)
-
-### 3. Feature Engineering Success
-
-**Engineered Features in Top 10:** [X out of 8]
-
-**Most Valuable Engineered Features:**
-1. [Feature name] - [Why it worked]
-2. [Feature name] - [Why it worked]
-3. [Feature name] - [Why it worked]
-
-**Overall Assessment:**
-- Feature engineering was [very successful/moderately successful/not very successful]
-- [X]% of top features are engineered
-- Domain knowledge [did/didn't] translate to better predictions
-
-### 4. Predictive Factors for Cholesterol
-
-**Top 5 Positive Predictors** (increase cholesterol):
-
-1. **[Feature]** (Coef: [value])
-   - **Clinical interpretation:** [What this means]
-   - **Modifiable:** [Yes/No]
-   - **Intervention opportunity:** [If yes, how]
-
-2. **[Feature]** (Coef: [value])
-   - [Interpretation]
-
-3. **[Feature]** (Coef: [value])
-   - [Interpretation]
-
-
-**Top 3 Negative Predictors** (decrease cholesterol):
-
-1. **[Feature]** (Coef: [value])
-   - **Clinical interpretation:** [What this means]
-   - **Protective factor:** [Why it lowers cholesterol]
-
-
-**Clinical Insights:**
-- Modifiable risk factors identified: [List]
-- Non-modifiable factors: [List]
-- Intervention priorities: [Based on coefficient magnitudes]
-
-### 5. Model Limitations
 
 **Data Limitations:**
 1. **Sample Size:** 303 patients (modest for 20 features)
@@ -1060,33 +890,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
    - May artificially inflate performance
    - Should interpret cautiously
 
-**What Model Cannot Do:**
--  Replace actual blood tests
--  Account for genetics/family history
--  Capture dietary effects
--  Predict individual outcomes with certainty
--  Generalize beyond similar populations
-
-### 6. Comparison to Medical Knowledge
-
-**Alignment with Known Risk Factors:**
-
-**Expected Relationships (Validated):**
--  Age increases cholesterol (matches literature)
--  Blood pressure correlates with cholesterol (metabolic syndrome)
--  [Other confirmed relationships]
-
-**Unexpected Findings:**
--  [Any surprising strong predictors]
--  [Any expected factors that weren't important]
--  [Possible reasons for discrepancies]
-
-**Clinical Guidelines Comparison:**
-- Our model identifies [X] of [Y] major cholesterol risk factors
-- [Assessment of alignment with NCEP ATP III guidelines]
-- [Gaps between model and clinical practice]
-
----
 
 ## Challenges Faced and Solutions
 
@@ -1142,124 +945,6 @@ Iteration 5: [Train] [Train] [Train] [Train] [Test]
 - Clinical categories capture threshold effects
 - Interaction terms reveal complex relationships
 
-### Challenge 3: Handling Potential Data Leakage
-
-**Issue:** Cholesterol category feature derived from target variable
-
-**Problem:**
-```python
-chol_category = f(chol)  # Function of target
-```
-This creates circularity - using target to predict itself
-
-**Considerations:**
-- Informative for exploration
-- Captures clinically meaningful thresholds
-- But may artificially inflate performance
-
-**Solution:**
-- Included feature but documented concern
-- Noted in limitations section
-- Model still valid with this feature removed
-- Kept for demonstrating threshold effects
-
-**Alternative Approaches:**
-- Remove cholesterol category entirely
-- Create categories from external guidelines only
-- Use in exploratory analysis but not final model
-
-### Challenge 4: Regularization Hyperparameter Tuning
-
-**Issue:** Selecting optimal alpha for Ridge and Lasso
-
-**Challenge:**
-- No single "right" alpha value
-- Different alphas for different datasets
-- Trade-off between fit and complexity
-
-**Approach:**
-1. **Grid Search:** Tested multiple alpha values
-   - Ridge: [0.1, 1.0, 10.0, 100.0]
-   - Lasso: [0.1, 1.0, 5.0, 10.0]
-
-2. **Evaluation:** Test set R² for each alpha
-
-3. **Selection:** Chose alpha with highest test R²
-
-**Results:**
-- Ridge optimal α: [value]
-- Lasso optimal α: [value]
-
-**Interpretation:**
-- **Low optimal α:** Little regularization needed (data not overfitting badly)
-- **High optimal α:** Strong regularization necessary (significant overfitting)
-
-**Limitations of Approach:**
-- Used test set for selection (slight leakage)
-- Better: Use separate validation set or nested CV
-- Trade-off: Simpler approach for educational purposes
-
-
-
-**Issue:** 303 samples for 20 features
-
-**Rule of Thumb:**
-- Need 10-20 samples per feature
-- 20 features → need 200-400 samples
-- We have 303 → borderline adequate
-
-**Implications:**
-- Risk of overfitting
-- Unstable coefficient estimates
-- Limited generalization
-
-**Mitigation Strategies:**
-1. **Regularization:** Ridge and Lasso prevent overfitting
-2. **Cross-Validation:** Assess generalization ability
-3. **Feature Selection:** Lasso reduces effective features
-4. **Conservative Interpretation:** Don't overstate results
-
-**Why This Matters:**
-- Small sample = less reliable patterns
-- Coefficients may be unstable
-- Performance estimates have wider confidence intervals
-
-**Future Improvement:**
-- Collect more data (>500 samples ideal)
-- Consider dimensionality reduction (PCA)
-- Use simpler models (fewer features)
-
-
-
-**Issue:** More complex models may perform better but are harder to explain
-
-**Models Considered:**
--  Linear (simple, interpretable)
--  Ridge (moderate complexity)
--  Lasso (moderate complexity, sparse)
--  Random Forest (complex, black box)
--  Neural Networks (very complex, black box)
-
-**Decision:** Stuck with linear models
-
-**Rationale:**
-- Coefficients directly interpretable
-- Stakeholders can understand predictions
-- Regulatory/clinical acceptance higher
-- Adequate performance for our data
-
-**Trade-off:**
-- May sacrifice some predictive power
-- Cannot capture complex non-linear patterns
-- Limited to additive effects
-
-**Future Considerations:**
-- Try ensemble methods (Deliverable 3)
-- Compare interpretable vs black-box performance
-- Use SHAP values for complex model interpretation
-
----
-
 
 ### Main Findings
 ![findings](findings.png)
@@ -1290,57 +975,18 @@ This creates circularity - using target to predict itself
    - [Assessment of reliability]
 
 ### Practical Applications
-
-**For Healthcare Providers:**
-1. **Screening Tool**
+ **Screening Tool**
    - Identify patients needing lipid panels
    - Prioritize high-risk individuals
    - Estimate cholesterol between blood tests
-
-2. **Risk Assessment**
-   - Combine with other risk calculators
-   - Understand cholesterol determinants
-   - Guide patient counseling
-
-**For Patients:**
-1. **Risk Awareness**
+ **Risk Awareness**
    - Understand personal risk factors
    - Identify modifiable behaviors
    - Track health metrics over time
-
-2. **Motivation**
-   - See impact of lifestyle changes
-   - Set concrete health goals
-   - Monitor progress
-
-**For Researchers:**
-1. **Hypothesis Generation**
+ **Hypothesis Generation**
    - Identify factors for further study
    - Understand factor relationships
    - Guide intervention design
 
-2. **Cohort Characterization**
-   - Describe population risk profiles
-   - Compare to other populations
-   - Identify data gaps
 
-### Limitations to Acknowledge
-
-**Study Limitations:**
-1. Small sample size (303 patients)
-2. Single medical center (limited diversity)
-3. Historical data (1988)
-4. Missing key variables (diet, genetics)
-
-**Model Limitations:**
-1. Linear assumptions may miss complexity
-2. R² of [value] leaves [100-X]% unexplained
-3. Prediction error of ±[RMSE] mg/dl significant
-4. Should not replace clinical blood tests
-
-**Generalization Concerns:**
-1. Trained on Cleveland Clinic population
-2. May not apply to other demographics
-3. Temporal changes since 1988
-4. Requires validation on external data
 
